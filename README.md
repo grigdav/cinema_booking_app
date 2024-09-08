@@ -73,7 +73,7 @@ docker-compose exec web python manage.py createsuperuser
 
 ## 2.3 Filling database mock data (optional):
 ```
-docker-compose exec web python manage.py createsuperuser
+docker-compose exec web python manage.py db_fill
 ```
 
 ### 3. Database Schema
