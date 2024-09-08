@@ -2,6 +2,13 @@
 
 This project is a cinema booking system built with Django. It allows users to browse available cinema rooms, view the movies playing in those rooms, and book specific seats for each movie. The system ensures that once a seat is booked, it becomes unavailable for the duration of the movie's screening.
 
+
+## Project run on http://rsh2.itrm.ru/ 
+
+You can enter site and test it. If you want to admin site enter http://rsh2.itrm.ru/admin 
+- **Username** : cinema_admin
+- **Password** : 1234
+
 ## Features
 
 - **Cinema Room Management**: Multiple cinema rooms (e.g., Red, Blue, Green) with different seating arrangements.
@@ -37,7 +44,7 @@ git clone https://github.com/your-username/cinema-booking.git
 cd cinema-booking
 ```
 
-### 2. Docker Setup
+### 2. Build and Run the Project with Docker
 
 Docker Setup
 For a complete Docker-based setup, follow these steps:
@@ -52,6 +59,21 @@ The application will be running at http://localhost:8000, and the PostgreSQL dat
 To stop the containers, use:
 ```
 docker-compose down
+```
+
+## 2.1 Run migrations (in another terminal window):
+```
+docker-compose exec web python manage.py migrate
+```
+
+## 2.2 Create a superuser (optional, for admin panel access):
+```
+docker-compose exec web python manage.py createsuperuser
+```
+
+## 2.3 Filling database mock data (optional):
+```
+docker-compose exec web python manage.py createsuperuser
 ```
 
 ### 3. Database Schema
