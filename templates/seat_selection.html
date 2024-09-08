@@ -4,6 +4,7 @@
 <h1 class="text-center my-5">Select a Seat for {{ schedule.movie.title }}</h1>
 <h3 class="text-center">In {{ schedule.cinema_room.name }} room </h3>
 
+{% if user.is_authenticated %}
 <table class="table table-bordered text-center">
     <thead>
         <tr>
@@ -29,6 +30,10 @@
     </tbody>
 </table>
 <a href="{% url 'movie_list' schedule.cinema_room.id %}" class="btn btn-secondary">Back to Movies</a>
+{% else %}
+<h3 class="text-center my-5">Only logged user can  book a seat. <a href="{% url 'admin:login' %}?next={{ request.path }}">Login</ah3</p>
+{% endif %}
+
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
