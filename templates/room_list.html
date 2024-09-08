@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-center my-5">Select a Cinema Room</h1>
+<div class="row">
+    {% for room in rooms %}
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ room.name }}</h5>
+                <p class="card-text">Seats: {{ room.rows }} rows x {{ room.seats_per_row }} seats</p>
+                <a href="{% url 'movie_list' room.id %}" class="btn btn-primary">View Movies</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+

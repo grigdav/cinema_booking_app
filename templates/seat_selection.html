@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-center my-5">Select a Seat for {{ schedule.movie.title }}</h1>
+<h3 class="text-center">In {{ schedule.cinema_room.name }} room </h3>
+
+<table class="table table-bordered text-center">
+    <thead>
+        <tr>
+            <th>Row</th>
+            <th>Seat</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for seat_info in seat_status %}
+        <tr>
+            <td>{{ seat_info.seat.row_number }}</td>
+            <td>{{ seat_info.seat.seat_number }}</td>
+            <td>
+                {% if seat_info.is_booked %}
+                    <span class="badge bg-danger">Booked</span>
+                {% else %}
+                    <button class="btn btn-success book-seat-btn" data-seat-id="{{ seat_info.seat.id }}">Book</button>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'movie_list' schedule.cinema_room.id %}" class="btn btn-secondary">Back to Movies</a>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.book-seat-btn').click(function() {
+            var seatId = $(this).data('seat-id');
+            var button = $(this);
+            var url = "{% url 'seat_selection' schedule.id %}";  // Current view URL
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {
+                    'seat_id': seatId,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        button.removeClass('btn-success').addClass('btn-danger').text('Booked');
+                        button.prop('disabled', true);  // Disable the button after booking
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseJSON.message);  // Show error message if seat is already booked
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
+

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-center my-5">Movies in {{ cinema_room.name }}</h1>
+
+<div class="row">
+    {% for schedule in schedules %}
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            {% if schedule.movie.poster %}
+            <img src="{{ schedule.movie.poster.url }}" class="card-img-top" alt="{{ schedule.movie.title }} Poster">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ schedule.movie.title }}</h5>
+                <p class="card-text">Duration: {{ schedule.movie.duration }} minutes</p>
+                <p class="card-text">Start on : {{ schedule.start_time }}</p>
+                <a href="{% url 'seat_selection' schedule.id %}" class="btn btn-primary">Book Now</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<a href="{% url 'cinema_room_list' %}" class="btn btn-secondary">Back to Cinema Rooms</a>
+{% endblock %}
+
