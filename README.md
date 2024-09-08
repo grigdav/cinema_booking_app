@@ -40,8 +40,8 @@ Ensure you have the following installed on your local machine:
 First, clone the project repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/cinema-booking.git
-cd cinema-booking
+git@github.com:grigdav/cinema_booking_app.git
+cd cinema_booking_app
 ```
 
 ### 2. Build and Run the Project with Docker
